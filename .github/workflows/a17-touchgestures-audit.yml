@@ -1,0 +1,20 @@
+name: Android 17 TouchGestures historical source audit
+
+on:
+  push:
+    branches:
+      - audit/a17-mondrian-touchgestures-20261104
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  legacy-gesture-inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check old HAL, signing, keyguard and proximity invariants
+        run: python3 tools/verify_a17_touchgestures_legacy.py
